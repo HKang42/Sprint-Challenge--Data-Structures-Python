@@ -5,24 +5,22 @@ class RingBuffer:
         self.oldest = oldest
 
     def append(self, item):
-        #self.values.insert(0,item)
+        # if we aren't at max capacity, simply append the item
         if len(self.values) < self.capacity:
             self.values.append(item)
             self.oldest = 0
         
-        # while number of elements is at capacity
+        # if number of elements is at capacity
         elif len(self.values) == self.capacity:
             
+            # Access the index for the oldest element and re-assign it to item.
             self.values[self.oldest] = item
             self.oldest += 1
 
+            # If oldest reaches the end of the list (i.e. oldest index = capacity)
+            # then we reset it to 0 since the oldest then becomes the 0th position
             if self.oldest >= self.capacity:
                 self.oldest = 0
-            """
-            self.values.pop(0)
-            print("HI", self.values)
-            self.values.append(item)
-            """
 
     def get(self):
         return self.values

@@ -10,6 +10,8 @@ would become...
 3->2->1->None
 ```
 
+# CORRECITON: Loops are okay. Recursion is optional.
+
 """
 
 class Node:
@@ -53,28 +55,31 @@ class LinkedList:
         return False
 
 
-
+    # use recursion (optional) to reverse a singly-linked list
+    # refer to "problem_visualization.jpg" for a visualization of the problem
     def reverse_list(self, node, prev):
         
+        # check to see if list is empty
         if self.head == None:
             return
 
+        # if the next node is None, we have reached the end of the list (base case)
+        # assign head to this node and set its pointer to the previous node (reverse pointer direction)
         elif node.next_node == None:
             self.head = node
             node.set_next(prev)
 
             return self
 
+        # If we are not at the base case
         else:
+            # Get the next node.  This will become the "current" node
             next = node.next_node
             
+            # Reverse the direction of the current node's pointer
             node.next_node = prev
 
+            # Recursively call reverse_list
+            # Input the "next" node as the current node and the current node as the previous
+            # This will let us reverse the pointer between them and move us closer to the tail (base case)
             self.reverse_list(next, node)
-
-
-        """
-        if prev == None:
-            prev = node
-            node = node.get_next
-        """
