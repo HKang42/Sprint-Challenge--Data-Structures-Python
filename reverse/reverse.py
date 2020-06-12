@@ -1,3 +1,17 @@
+"""
+reverse the contents of the list using recursion, *not a loop.*
+
+For example,
+```
+1->2->3->None
+```
+would become...
+```
+3->2->1->None
+```
+
+"""
+
 class Node:
     def __init__(self, value=None, next_node=None):
         self.value = value
@@ -38,5 +52,29 @@ class LinkedList:
 
         return False
 
+
+
     def reverse_list(self, node, prev):
-        pass
+        
+        if self.head == None:
+            return
+
+        elif node.next_node == None:
+            self.head = node
+            node.set_next(prev)
+
+            return self
+
+        else:
+            next = node.next_node
+            
+            node.next_node = prev
+
+            self.reverse_list(next, node)
+
+
+        """
+        if prev == None:
+            prev = node
+            node = node.get_next
+        """
