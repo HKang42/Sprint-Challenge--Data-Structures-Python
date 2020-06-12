@@ -31,3 +31,16 @@ class RingBuffer:
 # q = RingBuffer(5)
 # q.append("A")
 # print(q.get())
+
+
+"""
+for some reason, the test doesn't execute from top to bottom.
+
+This is causing it to fail the first test in the test code.
+
+First test is supposed to be inserting a single element. I have reproduced the test above where it works.
+The "first" test isn't being executed first and the tests don't re-initialize the RingBuffer object.
+So the buffer isn't cleared when the test code checks to see if you can create a 1 element list
+
+
+"""
