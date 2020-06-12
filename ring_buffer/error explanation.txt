@@ -1,0 +1,34 @@
+I think there's a bug with the ring_buffer_test.py file.
+
+If I run the file, I get an error saying I failed the "test_adding_one_element_to_buffer" test.
+
+But if I disable the tests that come after it, I pass that test.
+
+See screenshots:
+
+ - fail when running all: https://prnt.sc/syoti6
+ - pass when other tests are disabled: https://prnt.sc/syoswf
+
+
+I added prints statements to each test. From top to bottom, I print "1" for the first test, print "2" for the second, and so on.
+
+When the test file is executed, the numbers indicate that the tests are NOT being run from top to bottom. The order is 6, 5, 2, 4, 3, 1.
+
+Why is this a problem?
+The "test_adding_one_element_to_buffer" test assumes that it starts with an empty ring_buffer. It basically checks for 
+Empty Ring buffer . append('a') == ['a']
+or more simply
+[].append('a') == ['a']
+
+
+The problem is that the ring buffer object is NOT being reset between tests. Since test 5 is run before this test, the ring buffer object being used as an input is NOT empty. The input is the ring_buffer after it has been modified by test 5 ()
+
+So what the test is actually checking is:
+
+Full Ring buffer . append('a') == ['a']
+or more simply
+['f', 'g', 'h', 'i', 'e'] . append('a') == ['a']
+
+Obviously, this test will fail. And this explanation matches with the error printed by the test:
+
+['a', 'g', 'h', 'i', 'e'] != ['a']
