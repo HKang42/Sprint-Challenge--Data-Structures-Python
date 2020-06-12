@@ -39,8 +39,13 @@ for some reason, the test doesn't execute from top to bottom.
 This is causing it to fail the first test in the test code.
 
 First test is supposed to be inserting a single element. I have reproduced the test above where it works.
-The "first" test isn't being executed first and the tests don't re-initialize the RingBuffer object.
+
+What's the problem?
+In the test file, the "first" test isn't being executed first (i.e. tests are not being run from top to bottom). 
+This is a problem because the tests don't re-initialize the RingBuffer object.
 So the buffer isn't cleared when the test code checks to see if you can create a 1 element list
+
+See print statements in the test_ring_buffer.py file.
 
 
 """
